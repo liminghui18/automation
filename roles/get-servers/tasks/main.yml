@@ -1,0 +1,4 @@
+- name: start the server
+  os_server_action:
+    server: "hana-cockpit"
+    action: start
