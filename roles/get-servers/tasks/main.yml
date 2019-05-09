@@ -1,4 +1,3 @@
-- name: start the server
-  os_server_action:
-    server: "hana-cockpit"
-    action: start
+- os_server_facts:
+    cloud: otc-eu-de
+  delegate_to: localhost
