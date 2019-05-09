@@ -1,7 +1,6 @@
 - os_server_facts:
     cloud: otc-eu-de
-  delegate_to: localhost
-
+    
 - name: stop the server
   os_server_action:
     cloud: otc-eu-de
@@ -9,4 +8,3 @@
     action: stop
   when: item.name in offservers and item.name not in onservers and item.status == "ACTIVE"
   with_items: "{{ openstack_servers }}"
-  delegate_to: localhost
