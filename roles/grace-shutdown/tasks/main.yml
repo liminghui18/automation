@@ -2,23 +2,11 @@
     cloud: otc-eu-de
   delegate_to: localhost
 
-- name: execute command to shutdown process
-  shell: "/usr/sap/hostctrl/exe/sapcontrol -nr {{ instance_number }} -function Stop"
-  become: true
-  become_user: root
-  when: item.name ==  inventory_hostname  and item.name not in onservers and item.status == "ACTIVE"
-  with_items: "{{ openstack_servers }}" 
-
-
-- name: Sleep to let process gracefully shutdown
-  pause:
-    seconds: 60
-
 - name: stop the server
   os_server_action:
     cloud: otc-eu-de
     server: "{{ item.name }}"
     action: stop
-  when: item.name == inventory_hostname  and item.name not in onservers and item.status == "ACTIVE"
+  when: item.name in offservers and item.name not in onservers and item.status == "ACTIVE"
   with_items: "{{ openstack_servers }}"
   delegate_to: localhost
